@@ -8,7 +8,7 @@
 
 
 #let frame-settings = context {
-  if(counter(page).get().first() != 4) {
+  if(counter(page).get().first() != номер_первой_страницы) {
     image("/report/assets/borders/frame-small.png", width: 100%)
 
     place(left, dx: 57pt, dy: -34pt, box(width: 7mm, height: 5mm, inset: 3pt, tiny_text("Изм.", left)))
