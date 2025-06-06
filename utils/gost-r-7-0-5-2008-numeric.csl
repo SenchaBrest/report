@@ -156,8 +156,8 @@
       <if type="webpage post-weblog" match="any">
         <choose>
           <if variable="URL">
-            <text variable="URL" prefix="Режим доступа: "/>
-            <group prefix=" (" suffix=")" delimiter=": ">
+            <text variable="URL" prefix="– Режим доступа: "/>
+            <group prefix=". – " suffix="" delimiter=": ">
               <text term="accessed"/>
               <!-- localized date is not used here, since we prefer the Russian date style for entries of all languages -->
               <date variable="accessed">
@@ -194,7 +194,7 @@
       <group delimiter=". ">
         <group>
           <group delimiter=". ">
-            <text macro="author"/>
+            <!-- <text macro="author"/> -->
             <!-- Заголовок с указанием авторов -->
             <text macro="title"/>
             <!-- Заглавие -->
@@ -211,7 +211,7 @@
         <group delimiter=", ">
           <!-- Выходные данные -->
           <text macro="publisher"/>
-          <text macro="issued-year"/>
+          <!-- <text macro="issued-year"/> -->
         </group>
         <!-- Сведения о местоположении составной части в документе или физические характеристики -->
         <text macro="locators"/>

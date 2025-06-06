@@ -1,10 +1,9 @@
-#import "frame-settings.typ": frame-settings
+#import "../utils/frame-settings.typ": frame-settings
 #import "const.typ": *
 
 
 #let gost(doc) = {
   counter(page).update(номер_первой_страницы)
-
 
   set page(
     background: frame-settings,
@@ -40,7 +39,10 @@
     supplement: "Таблица",
     gap: отступ_для_подписей_таблиц,
   )
-  set figure.caption(separator: [ --- ])
+  set figure.caption(separator: [ -- ])
+  show figure: it => block(spacing: отступ_для_figure)[#it]
+
+
   set math.equation(
     numbering: n => {
       numbering("(1.1)", counter(heading).get().first(), n)
@@ -48,6 +50,27 @@
     supplement: []
   )
 
+  show math.equation.where(block: true): it => {
+    block(
+      above: отступ_для_figure,
+      below: отступ_для_figure,
+      align(
+        left,
+        pad(
+          left: абзац,
+          right: абзац,
+          it
+        )
+      )
+    )
+  }
+
+
+  show raw: set text(font: "Courier New")
+  show raw.where(block: true): it => block(spacing: отступ_для_figure)[#it]
+  
+
+  // show table: set text(size: 12pt)
 
   set heading(numbering: "1.")
   show heading: set block(above: верт_отступ_до_заголовков, below: верт_отступ_после_заголовков)
@@ -63,13 +86,15 @@
         pagebreak()
         pad(x: гор_отступ_заголовков, upper(it))
       }
-      else { // содержание - отдельный случай
-        pad(upper(it))
-      }
+      else { //  если содержание - отдельный случай, поменяй паддинг
+        // pad(upper(it))
+        pad(x: гор_отступ_заголовков, upper(it))
+     }
     } else {
-      set text(размер_шрифта_подзаголовков)
+      set text(размер_шрифта_подзаголовков) // если нужнен дополнительный отступ, поменяй паддинг
 
-      pad(x: гор_отступ_заголовков + (гор_доп_отступ_подзаголовков * (it.level - 1)), it)
+      // pad(x: гор_отступ_заголовков + (гор_доп_отступ_подзаголовков * (it.level - 1)), it)
+      pad(x: гор_отступ_заголовков, it)
     }
   ]
 
@@ -84,15 +109,35 @@
   )
 
 
-  set list(indent: абзац, marker: ([•], [--]))
+  set list(indent: абзац, marker: ([--], [•]))
   set enum(indent: абзац) // предпочтительно во вложенных списках использовать маркированные списки
 
 
-  set outline(title: "Содержание", indent: 0pt)
+  let главы_без_точек = (
+    "Приложение А. Код программы",
+    "Приложение Б.",
+  )
+
+  let главы_с_новой_страницы = (
+    "Технико-экономическое обоснование",
+  )
+
+  set outline(title: "Содержание") // indent: 0pt
   show outline.entry: it => {
-    set text(размер_шрифта_содержания, weight: "bold")
+    set text(размер_шрифта_содержания, weight: 700)
+    
+    let chapter_text = it.element.body.text
+    
+    if chapter_text in главы_с_новой_страницы {
+      pagebreak()
+    }
+    
     if it.level == 1 {
-      upper(it)
+      if chapter_text in главы_без_точек {
+        block[#upper(it.element.body)]
+      } else {
+        upper(it)
+      }
     } else {
       it
     }
@@ -107,3 +152,4 @@
 
 
 #let numless(it) = {set heading(numbering: none); it }
+#let indetless(it) = {set par(first-line-indent: (amount: 0pt, all: true)); it}
