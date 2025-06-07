@@ -7,7 +7,7 @@
 #let big_text(текст, выравнивание) = align(text(текст, size: размер_шрифта_для_больших_подписей), выравнивание)
 
 #let frame-settings = context {
-  if(counter(page).get().first() != 4) {
+  if(counter(page).get().first() != номер_первой_страницы) {
     image("../assets/borders/frame-small.png", width: 100%)
 
     place(left, dx: 57pt, dy: -34pt, box(width: 7mm, height: 5mm, inset: 3pt, tiny_text("Изм.", left)))
