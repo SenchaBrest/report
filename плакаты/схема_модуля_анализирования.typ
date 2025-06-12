@@ -1,4 +1,4 @@
-#import "../utils/вертикальная_рамка_для_плаката.typ": рамка
+#import "../utils/вертикальная_рамка.typ": рамка
 
 #let margin = (left: 4cm, right: 10mm, top: 10mm, bottom: 10mm)
 

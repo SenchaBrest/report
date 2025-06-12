@@ -68,9 +68,19 @@
 
   show raw: set text(font: "Courier New")
   show raw.where(block: true): it => block(spacing: отступ_для_figure)[#it]
-  
 
-  // show table: set text(size: 12pt)
+  show table: it => {
+    context {
+      let current-size = text.size
+      if current-size == 8pt {
+        set par(leading: 0.65em, justify: false)
+        it
+      } else {
+        set text(size: 12pt)
+        it
+      }
+    }
+  }
 
   set heading(numbering: "1.")
   show heading: set block(above: верт_отступ_до_заголовков, below: верт_отступ_после_заголовков)

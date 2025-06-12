@@ -1,56 +1,18 @@
 #import "const.typ": *
+#import "вертикальная_рамка.typ": рамка
 
-
-#let tiny_text(текст, выравнивание) = align(text(текст, size: размер_шрифта_для_очень_мелких_подписей), выравнивание)
-#let small_text(текст, выравнивание) = align(text(текст, size: размер_шрифта_для_мелких_подписей, hyphenate: false), выравнивание)
-#let medium_text(текст, выравнивание) = align(text(текст, size: размер_шрифта_для_средних_подписей, hyphenate: false), выравнивание)
-#let big_text(текст, выравнивание) = align(text(текст, size: размер_шрифта_для_больших_подписей), выравнивание)
+#let margin = (left: 2cm, right: 5mm, top: 5mm, bottom: 5mm)
 
 #let frame-settings = context {
   if(counter(page).get().first() != номер_первой_страницы) {
-    image("../assets/borders/frame-small.png", width: 100%)
-
-    place(left, dx: 57pt, dy: -34pt, box(width: 7mm, height: 5mm, inset: 3pt, tiny_text("Изм.", left)))
-    place(left, dx: 77pt, dy: -34pt, box(width: 10mm, height: 5mm, inset: 3pt, tiny_text("Лист", center)))
-    place(left, dx: 105pt, dy: -34pt, box(width: 23mm, height: 5mm, inset: 3pt, tiny_text("№ докум.", center)))
-    place(left, dx: 170pt, dy: -34pt, box(width: 15mm, height: 5mm, inset: 3pt, tiny_text("Подпись", center)))
-    place(left, dx: 213pt, dy: -34pt, box(width: 10mm, height: 5mm, inset: 3pt, tiny_text("Дата", center)))
-
-    place(right, dx: -43pt, dy: -62pt, box(width: 110mm, height: 15mm, big_text(номер, center)))
-
-    place(right, dx: -20pt, dy: -62pt, box(width: 10mm, height: 5mm, small_text("Лист", center)))
-
-    place(right, dx: -20pt, dy: -47pt, box(width: 10mm, height: 10mm, medium_text(str(counter(page).get().first()), center)))
+    pad(
+      рамка(доп_название: "Пояснительная записка", type: "малая"), 
+      left: margin.left, right: margin.right, top: margin.top, bottom: margin.bottom
+    )
   } else {
-    image("../assets/borders/frame-big.png", width: 100%)
-
-    place(left, dx: 57pt, dy: -104pt, box(width: 7mm, height: 5mm, inset: 3pt, tiny_text("Изм.", left)))
-    place(left, dx: 77pt, dy: -104pt, box(width: 10mm, height: 5mm, inset: 3pt, tiny_text("Лист", center)))
-    place(left, dx: 105pt, dy: -104pt, box(width: 23mm, height: 5mm, inset: 3pt, tiny_text("№ докум.", center)))
-    place(left, dx: 170pt, dy: -104pt, box(width: 15mm, height: 5mm, inset: 3pt, tiny_text("Подпись", center)))
-    place(left, dx: 213pt, dy: -104pt, box(width: 10mm, height: 5mm, inset: 3pt, tiny_text("Дата", center)))
-
-    place(left, dx: 57pt, dy: -90pt, box(width: 17mm, height: 5mm, inset: 3pt, tiny_text("Разработал", left)))
-    place(left, dx: 57pt, dy: -76pt, box(width: 17mm, height: 5mm, inset: 3pt, tiny_text("Проверил", left)))
-    place(left, dx: 57pt, dy: -47pt, box(width: 17mm, height: 5mm, inset: 3pt, tiny_text("Н. Контр.", left)))
-    place(left, dx: 57pt, dy: -35pt, box(width: 17mm, height: 5mm, inset: 3pt, tiny_text("Утвердил", left)))
-
-    place(left, dx: 105pt, dy: -90pt, box(width: 23mm, height: 5mm, inset: 3pt, tiny_text(разработал, left)))
-    place(left, dx: 105pt, dy: -76pt, box(width: 23mm, height: 5mm, inset: 3pt, tiny_text(проверил, left)))
-    place(left, dx: 105pt, dy: -47pt, box(width: 23mm, height: 5mm, inset: 3pt, tiny_text(контроль, left)))
-    place(left, dx: 105pt, dy: -35pt, box(width: 23mm, height: 5mm, inset: 3pt, tiny_text(утвердил, left)))
-
-    place(right, dx: -20pt, dy: -133pt, box(width: 118mm, height: 15mm, big_text(номер, center)))
-    place(right, dx: -155pt, dy: -90pt, box(width: 70mm, height: 25mm, inset: 3pt, small_text(название_диплома + [. \ Пояснительная записка], center)))
-
-    place(right, dx: -113pt, dy: -90pt, box(width: 15mm, height: 5mm, small_text("Стадия", center)))
-    place(right, dx: -71pt, dy: -90pt, box(width: 15mm, height: 5mm, small_text("Лист", center)))
-    place(right, dx: -20pt, dy: -90pt, box(width: 18mm, height: 5mm, small_text("Листов", center)))
-
-    place(right, dx: -113pt, dy: -76pt, box(width: 15mm, height: 5mm, small_text("ДП", center)))
-    place(right, dx: -71pt, dy: -76pt, box(width: 15mm, height: 5mm, small_text(str(counter(page).get().first()), center)))
-    place(right, dx: -20pt, dy: -76pt, box(width: 18mm, height: 5mm, small_text(str(counter(page).final().first() - сколько_страниц_убрать), center)))
-
-    place(right, dx: -20pt, dy: -61pt, box(width: 48mm, height: 14mm, medium_text(название_вуза, center)))
+    pad(
+      рамка(доп_название: "Пояснительная записка", сколько_страниц_убрать: 1), 
+      left: margin.left, right: margin.right, top: margin.top, bottom: margin.bottom
+    )
   }
 }

@@ -1,11 +1,11 @@
-#import "../utils/вертикальная_рамка_для_плаката.typ": рамка
+#import "../utils/вертикальная_рамка.typ": рамка
 
 #let margin = (left: 4cm, right: 10mm, top: 10mm, bottom: 10mm)
 
 #set page(
   paper: "a1",
   background: pad(
-    рамка(название_плаката: "Схема работы системы"), 
+    рамка(доп_название: "Схема работы системы"), 
     left: margin.left, right: margin.right, top: margin.top, bottom: margin.bottom
   ),
   margin: margin
