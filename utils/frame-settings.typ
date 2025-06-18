@@ -6,12 +6,12 @@
 #let frame-settings = context {
   if(counter(page).get().first() != номер_первой_страницы) {
     pad(
-      рамка(доп_название: "Пояснительная записка", type: "малая"), 
+      рамка(номер: номер, доп_название: "Пояснительная записка", type: "малая"), 
       left: margin.left, right: margin.right, top: margin.top, bottom: margin.bottom
     )
   } else {
     pad(
-      рамка(доп_название: "Пояснительная записка", сколько_страниц_убрать: 1), 
+      рамка(номер: номер, доп_название: "Пояснительная записка", сколько_страниц_убрать: 1), 
       left: margin.left, right: margin.right, top: margin.top, bottom: margin.bottom
     )
   }

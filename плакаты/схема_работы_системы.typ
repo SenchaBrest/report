@@ -1,11 +1,13 @@
 #import "../utils/вертикальная_рамка.typ": рамка
 
-#let margin = (left: 4cm, right: 10mm, top: 10mm, bottom: 10mm)
+#let номер = "ДП.ИИ21.210560-05\u{00a0}90\u{00a0}00" // переопределяем номер
+
+#let margin = (left: 2cm, right: 5mm, top: 5mm, bottom: 5mm)
 
 #set page(
   paper: "a1",
   background: pad(
-    рамка(доп_название: "Схема работы системы"), 
+    рамка(номер: номер, доп_название: "Схема работы системы"), 
     left: margin.left, right: margin.right, top: margin.top, bottom: margin.bottom
   ),
   margin: margin

@@ -1,6 +1,6 @@
 #import "../utils/const.typ": *
 
-#let рамка(доп_название: "", x: 1, type: "большая", сколько_страниц_убрать: 0) = context {
+#let рамка(номер: "", доп_название: "", x: 1, type: "большая", сколько_страниц_убрать: 0) = context {
   set text(font: "Arial", size: 8pt * x, style: "italic")
  
   let штамп_большой = table(

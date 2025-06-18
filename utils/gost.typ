@@ -37,8 +37,13 @@
       numbering("1.1", counter(heading).get().first(), n)
     },
     supplement: "Таблица",
-    gap: отступ_для_подписей_таблиц,
+    gap: отступ_для_подписей_таблиц
   )
+
+  show figure.where(
+    kind: table
+  ): set figure.caption(position: top)
+
   set figure.caption(separator: [ -- ])
   show figure: it => block(spacing: отступ_для_figure)[#it]
 
@@ -82,7 +87,7 @@
     }
   }
 
-  set heading(numbering: "1.")
+  set heading(numbering: "1.1")
   show heading: set block(above: верт_отступ_до_заголовков, below: верт_отступ_после_заголовков)
   show heading: it => [
     #if it.level == 1 {
@@ -90,7 +95,7 @@
       counter(figure.where(kind: table)).update(0)
       counter(math.equation).update(0)
 
-      set text(размер_шрифта_заголовков)
+      set text(размер_шрифта_заголовков, hyphenate: false)
 
       if it.outlined == true {
         pagebreak()
@@ -101,7 +106,7 @@
         pad(x: гор_отступ_заголовков, upper(it))
      }
     } else {
-      set text(размер_шрифта_подзаголовков) // если нужнен дополнительный отступ, поменяй паддинг
+      set text(размер_шрифта_подзаголовков, hyphenate: false) // если нужнен дополнительный отступ, поменяй паддинг
 
       // pad(x: гор_отступ_заголовков + (гор_доп_отступ_подзаголовков * (it.level - 1)), it)
       pad(x: гор_отступ_заголовков, it)
@@ -124,17 +129,17 @@
 
 
   let главы_без_точек = (
-    "Приложение А. Код программы",
+    "Приложение А. Текст программы",
     "Приложение Б.",
   )
 
   let главы_с_новой_страницы = (
-    "Технико-экономическое обоснование",
+    "Расчёт полной себестоимости программного модуля",
   )
 
-  set outline(title: "Содержание") // indent: 0pt
+  set outline(title: "Содержание", indent: 0pt)
   show outline.entry: it => {
-    set text(размер_шрифта_содержания, weight: 700)
+    set text(размер_шрифта_содержания)
     
     let chapter_text = it.element.body.text
     
@@ -154,7 +159,10 @@
   }
 
 
-  set bibliography(title: "Список использованных источников", style: "gost-r-7-0-5-2008-numeric.csl")
+  set bibliography(
+    title: "Список использованных источников", 
+    style: "gost-r-7-0-5-2008-numeric.csl",
+  )
 
 
   doc

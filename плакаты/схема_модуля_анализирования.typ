@@ -1,14 +1,16 @@
 #import "../utils/вертикальная_рамка.typ": рамка
 
-#let margin = (left: 4cm, right: 10mm, top: 10mm, bottom: 10mm)
+#let номер = "ДП.ИИ21.210560-05\u{00a0}91\u{00a0}00" // переопределяем номер
+
+#let margin = (left: 2cm, right: 5mm, top: 5mm, bottom: 5mm)
 
 #set page(
   paper: "a1",
   background: pad(
-    рамка(доп_название: "Схема модуля анализирования"), 
+    рамка(номер: номер,доп_название: "Схема алгоритма программы"), 
     left: margin.left, right: margin.right, top: margin.top, bottom: margin.bottom
     ),
   margin: margin
 )
-#place(image("../схемы/схема_модуля_анализирования.png"), center, dy: 12em)
+#place(image("../схемы/схема_модуля_анализирования.png"), center, dy: 5em)
 

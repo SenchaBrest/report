@@ -1,13 +1,13 @@
 #import "../utils/const.typ": *
 
 
-#let рамка(название_плаката: "Название плаката") = {
+#let рамка(номер: "", название_плаката: "") = {
   let x = 1
 
   set page(
     paper: "a1",
     flipped: true,
-    margin: (left: 4cm, right: 10mm, top: 10mm, bottom: 10mm)
+    margin: (left: 2cm, right: 5mm, top: 5mm, bottom: 5mm)
   )
   set text(font: "Arial", size: 8pt * x, style: "italic")
   
@@ -48,13 +48,13 @@
     stroke: (x, y) => (
       (
         top: if y == 0 {2pt},  
-        bottom: if y == 2 {3pt}, // если нужен номер сверху if y == 2  or (y == 0 and x == 0) {2pt},
+        bottom: if y == 2  or (y == 0 and x == 0) {2pt},
         left: if x == 0 {2pt},
-        right: if x == 2 {2pt}, // если нужен номер сверху if x == 2 or (y == 0 and x == 0){2pt},
+        right: if x == 2 or (y == 0 and x == 0){2pt},
       )
     ),
     inset: 0pt,
-    [], [], [], // [#rotate(text(номер, size: 14pt * x), 180deg)], [], [], 
+    [#rotate(text(номер, size: 14pt * x), 180deg)], [], [], 
     [], [], [],
     [], [], [#штамп],
   )

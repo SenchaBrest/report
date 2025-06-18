@@ -1,5 +1,13 @@
 #import "utils/const.typ": *
 
+#let номер = "ДП.ИИ21.210560-05\u{00a0}12\u{00a0}00" // переопределяем номер
+
+
+#let rearrange-name(name) = {
+  let parts = name.split(" ")
+  parts.at(1) + " " + parts.at(0)
+}
+
 #set page(
   margin: (top: верх, bottom: низ, left: лево, right: право),
 )
@@ -27,7 +35,7 @@
 #align(upper[Учреждение образования], center)
 #align(upper["Брестский государственный технический университет"], center)
 #linebreak()
-#align([Кафедра "Интеллектуальные информационные технологии"], center)
+#align([Кафедра "Интеллектуальных информационных технологий"], center)
 #linebreak() #linebreak() #linebreak()
 #align(upper[#название_диплома], center)
 #linebreak()
@@ -42,9 +50,9 @@
 #align(
   table(
     columns: 2,
-    [Руководитель], [#проверил],
-    [Выполнил], [#разработал],
-    [Консультант \ по ЕСПД #h(1.3em)], [#align(контроль, bottom)],
+    [Руководитель], [#rearrange-name(проверил)],
+    [Выполнил], [#rearrange-name(разработал)],
+    [Консультант \ по ЕСПД #h(1.3em)], [#align(rearrange-name(контроль), bottom)],
   ),
   right
 )

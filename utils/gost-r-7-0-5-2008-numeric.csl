@@ -61,16 +61,28 @@
       <name name-as-sort-order="all" sort-separator=" " initialize-with="." delimiter=", " delimiter-precedes-last="always"/>
     </names>
   </macro>
+  <macro name="author-full">
+    <names variable="author">
+      <name name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="always"/>
+    </names>
+  </macro>
   <macro name="title">
     <choose>
       <if type="webpage post-weblog" match="any">
-        <!-- adds "[Electronic resource]" or Russian equivalent after the title-->
-        <text variable="title" suffix=" "/>
-        <text term="online" text-case="sentence" prefix="[" suffix="]"/>
+        <!-- Только название без "[Electronic resource]" для веб-страниц -->
+        <text variable="title"/>
       </if>
       <else>
         <text variable="title"/>
       </else>
+    </choose>
+  </macro>
+  <macro name="online-resource">
+    <!-- Отдельный макрос для "[Электронный ресурс]" -->
+    <choose>
+      <if type="webpage post-weblog" match="any">
+        <text term="online" text-case="sentence" prefix="[" suffix="]."/>
+      </if>
     </choose>
   </macro>
   <macro name="edition">
@@ -187,17 +199,30 @@
   </citation>
   <!-- Bibliography -->
   <!-- Опции "et-al..." в следующей строчке описывают требования ГОСТ-а, но не полностью. В ГОСТ-е прописано, что от 1 до 3 авторов указываются полностью и в "заголовке", т.е. в начале записи перед названием, а 4 и более сокращаются с помощью "и др." и указываются только в "сведениях об ответственности", т.е. после названия. В этом стиле я сознательно сделал выбор в пользу упрощения (авторы всегда указываются вначале), чтобы не уродовать библиографию. Если есть строгая необходимость следовать букве ГОСТ-а, то это можно реализовать как в ... -->
-  <bibliography et-al-min="4" et-al-use-first="1" entry-spacing="0" second-field-align="flush">
+  <bibliography hanging-indent="true" second-field-align="flush">
     <layout suffix=".">
-      <text variable="citation-number" suffix="."/>
+      <text variable="citation-number" prefix="             " suffix="."/>
       <!-- Комментарии ниже даны в соответствии с терминами, определёнными в ГОСТе -->
       <group delimiter=". ">
         <group>
-          <group delimiter=". ">
-            <!-- <text macro="author"/> -->
+          <group delimiter="">
             <!-- Заголовок с указанием авторов -->
             <text macro="title"/>
             <!-- Заглавие -->
+            <!-- Для веб-страниц: автор полностью после названия через // -->
+            <choose>
+              <if type="webpage post-weblog" match="any">
+                <text macro="author-full" prefix=" // " suffix=" "/>
+              </if>
+            </choose>
+            <!-- Добавляем "[Электронный ресурс]" для веб-страниц -->
+            <text macro="online-resource"/>
+            <!-- Добавляем год для веб-страниц после электронного ресурса -->
+            <choose>
+              <if type="webpage post-weblog" match="any">
+                <text macro="issued-year" prefix=" – "/>
+              </if>
+            </choose>
           </group>
           <text macro="type-number" prefix=": "/>
           <!-- Сведения, относящиеся к заглавию -->
